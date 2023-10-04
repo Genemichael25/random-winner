@@ -7,6 +7,30 @@ const App = () => {
   const [participants, setParticipants] = useState([])
   const [winner, setWinner] = useState("")
 
+  const [password, setPassword] = useState("")
+  const [color, setColor] = useState("red")
+  const [type, setType] = useState("password")
+  const [visibility, setVisibility] = useState(false)
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value)
+    if(password.length > 8){
+      setColor("green")
+    } else {
+      setColor("red")
+    }
+  }
+
+  const changeType = () => {
+    if(visibility === false) {
+      setType("text")
+      setVisibility(true)
+    } else if(visibility === true) {
+      setType("password")
+      setVisibility(false)
+    }
+  }
+
   useEffect(() => {
     const newParticipants = Array.from({ length: numberOfEntries }, (_, index) => ({
       id: index, 
@@ -60,6 +84,13 @@ const App = () => {
       </ol>
       <button onClick={selectWinner}>Generate a winner</button>
       <p>{winner}</p>
+      <input type={type} name="password" onChange={handleChangePassword}></input>
+      <button onClick={changeType}>Want to see your password?</button>
+      <label>Please enter a password
+
+      </label>
+      <p style={{color:color}}>Must be greater than 8 characters</p>
+      <p>Must include a number</p>
     </>
   );
 }
